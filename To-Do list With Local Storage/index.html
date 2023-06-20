@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo App</title>
+  <style>
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Todo App</h1>
+  <form id="todoForm">
+    <input type="text" id="todoInput" placeholder="Enter a todo">
+    <button type="submit">Add</button>
+  </form>
+  <ul id="todoList"></ul>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Retrieve todos from local storage if available
+      var todos = localStorage.getItem('todos');
+      if (todos) {
+        document.getElementById('todoList').innerHTML = todos;
+      }
+
+      // Add event listener to the form
+      document.getElementById('todoForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get the input value
+        var todoInput = document.getElementById('todoInput');
+        var todoText = todoInput.value.trim();
+
+        if (todoText !== '') {
+          // Create a new todo item
+          var todoItem = document.createElement('li');
+          todoItem.textContent = todoText;
+
+          // Append the todo item to the todo list
+          var todoList = document.getElementById('todoList');
+          todoList.appendChild(todoItem);
+
+          // Save the updated todo list to local storage
+          localStorage.setItem('todos', todoList.innerHTML);
+
+          // Clear the input
+          todoInput.value = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
